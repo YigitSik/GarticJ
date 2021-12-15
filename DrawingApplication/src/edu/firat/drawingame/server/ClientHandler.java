@@ -10,22 +10,18 @@ public class ClientHandler implements Runnable{
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
     private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
 
     public ClientHandler(Socket socket){
         try {
             this.socket = socket;
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.oos = new ObjectOutputStream(socket.getOutputStream());
             this.ois = new ObjectInputStream(socket.getInputStream());
             clientHandlers.add(this);
             System.out.println("SERVER: someone has entered the chat!");
         } catch (IOException e) {
-            closeEverything(socket,bufferedReader,bufferedWriter);
+            closeEverything(socket,oos,ois);
         }
     }
 
@@ -37,7 +33,7 @@ public class ClientHandler implements Runnable{
                 DrawData drawData = (DrawData) ois.readObject();
                 broadcastDrawData(drawData);
             } catch (IOException | ClassNotFoundException e){
-                closeEverything(socket,bufferedReader,bufferedWriter);
+                closeEverything(socket,oos,ois);
                 break;
             }
         }
@@ -52,7 +48,7 @@ public class ClientHandler implements Runnable{
                 clientHandler.oos.writeObject(drawData);
                 clientHandler.oos.flush();
             } catch (IOException e){
-                closeEverything(socket,bufferedReader,bufferedWriter);
+                closeEverything(socket,oos,ois);
             }
         }
 
@@ -63,14 +59,14 @@ public class ClientHandler implements Runnable{
         System.out.println(("SERVER: someone has left the chat!"));
     }
 
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    public void closeEverything(Socket socket, ObjectOutputStream oos, ObjectInputStream ois){
         removeClientHandler();
         try {
-            if (bufferedReader!=null){
-                bufferedReader.close();
+            if (ois!=null){
+                ois.close();
             }
-            if (bufferedWriter !=null){
-                bufferedWriter.close();
+            if (oos !=null){
+                oos.close();
             }
             if (socket !=null){
                 socket.close();

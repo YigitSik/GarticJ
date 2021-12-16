@@ -1,5 +1,6 @@
 package edu.firat.drawingame.network;
 
+import edu.firat.drawingame.Game;
 import edu.firat.drawingame.canvas.DrawArea;
 import edu.firat.drawingame.model.DrawData;
 
@@ -13,20 +14,20 @@ public class Network {
     private static ObjectInputStream ois;
     private static DrawArea drawArea;
 
-    public Network(){
+    public Network(String nickname, String host, String port) {
         try {
-            socket = new Socket("localhost",1234);
+            socket = new Socket(host, Integer.parseInt(port));
             drawArea = DrawArea.getInstance();
             oos = new ObjectOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
             listenForDrawData();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public static void sendDrawData(DrawData drawData){
+    public static void sendDrawData(DrawData drawData) {
 
         try {
             oos.writeObject(drawData);
@@ -36,19 +37,19 @@ public class Network {
         }
     }
 
-    public void listenForDrawData(){
+    public void listenForDrawData() {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (socket.isConnected()){
-                try{
-                    DrawData drawData = (DrawData) ois.readObject();
-                    drawArea.drawBroadcastData(drawData);
-                } catch (IOException | ClassNotFoundException e){
-                    e.printStackTrace();
+                while (socket.isConnected()) {
+                    try {
+                        DrawData drawData = (DrawData) ois.readObject();
+                        drawArea.drawBroadcastData(drawData);
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
             }
         }).start();
     }

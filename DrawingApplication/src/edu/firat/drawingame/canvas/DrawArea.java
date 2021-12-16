@@ -35,7 +35,7 @@ public class DrawArea extends JComponent {
                 currentX = e.getX();
                 currentY = e.getY();
 
-                DrawData drawData = new DrawData(oldX,oldY,currentX,currentY);
+                DrawData drawData = new DrawData(oldX, oldY, currentX, currentY);
                 Network.sendDrawData(drawData);
 
                 if (g2D != null) {
@@ -48,7 +48,7 @@ public class DrawArea extends JComponent {
         });
     }
 
-    public void drawBroadcastData(DrawData drawData){
+    public void drawBroadcastData(DrawData drawData) {
         if (g2D != null) {
             g2D.drawLine(drawData.oldX, drawData.oldY, drawData.currentX, drawData.currentY);
             repaint();
@@ -93,8 +93,8 @@ public class DrawArea extends JComponent {
                 8.0f, dash, limit));
     }
 
-    public static DrawArea getInstance(){
-        if (single_instance == null){
+    public static DrawArea getInstance() {
+        if (single_instance == null) {
             single_instance = new DrawArea();
         }
         return single_instance;

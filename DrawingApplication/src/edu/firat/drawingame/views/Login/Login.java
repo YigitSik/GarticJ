@@ -17,8 +17,6 @@ public class Login extends JFrame {
 
     public Login() {
         initContainer();
-
-
         setContentPane(container);
         setTitle("Login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -34,7 +32,6 @@ public class Login extends JFrame {
 
     public void initContainer() {
         container = new JPanel();
-
         leftPanel = new JPanel();
         leftPanel.setBackground(Color.decode("#ffffff"));
         leftPanel.setLayout(null);
@@ -86,7 +83,11 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nickname = newNickInput.getText();
                 String port = newPortInput.getText();
-                // new Server(port);
+
+                new Thread(()->{
+                    new Server(Integer.parseInt(port));
+                }).start();
+
                 new Network(nickname, "localhost", port);
                 new Drawing();
                 setVisible(false);

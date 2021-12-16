@@ -8,8 +8,15 @@ public class Server {
 
     private ServerSocket serverSocket;
 
-    public Server(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
+    public Server(int port) {
+
+        try {
+            serverSocket = new ServerSocket(port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        startServer();
     }
 
     public void startServer(){
@@ -42,13 +49,12 @@ public class Server {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-
-        ServerSocket serverSocket = new ServerSocket(1234);
-
-        Server server = new Server(serverSocket);
-        server.startServer();
-
-
-    }
+//    public static void main(String[] args) throws IOException {
+//
+//
+////        Server server = new Server();
+////        server.startServer();
+//
+//
+//    }
 }

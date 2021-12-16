@@ -39,19 +39,19 @@ public class Network {
 
     public void listenForDrawData() {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (socket.isConnected()) {
-                    try {
-                        DrawData drawData = (DrawData) ois.readObject();
-                        drawArea.drawBroadcastData(drawData);
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
+        new Thread(() -> {
+
+        while (socket.isConnected()) {
+            try {
+                DrawData drawData = (DrawData) ois.readObject();
+                drawArea.drawBroadcastData(drawData);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
+        }
+
         }).start();
+
     }
 
 }

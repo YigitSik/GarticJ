@@ -37,9 +37,7 @@ public class ClientHandler implements Runnable{
                 break;
             }
         }
-
     }
-
 
     public void broadcastDrawData(DrawData drawData){
 

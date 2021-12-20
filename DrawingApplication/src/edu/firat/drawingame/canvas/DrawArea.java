@@ -20,7 +20,9 @@ public class DrawArea extends JComponent {
     private static DrawArea single_instance;
     private int currentX, currentY, oldX, oldY;
 
+
     private DrawArea() {
+
         setDoubleBuffered(false);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -46,6 +48,8 @@ public class DrawArea extends JComponent {
                 }
             }
         });
+
+
     }
 
     public void drawBroadcastData(DrawData drawData) {
@@ -57,14 +61,18 @@ public class DrawArea extends JComponent {
         }
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
+    public void generateImage() {
         if (image == null) {
             image = createImage(getSize().width, getSize().height);
             g2D = (Graphics2D) image.getGraphics();
             g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             clear();
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        generateImage();
         g.drawImage(image, 0, 0, null);
 
     }
@@ -99,5 +107,6 @@ public class DrawArea extends JComponent {
         }
         return single_instance;
     }
+
 
 }

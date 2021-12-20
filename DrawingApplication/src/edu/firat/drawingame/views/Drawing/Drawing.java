@@ -1,4 +1,6 @@
-package edu.firat.drawingame.canvas;
+package edu.firat.drawingame.views.Drawing;
+
+import edu.firat.drawingame.canvas.DrawArea;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,14 +9,30 @@ import java.awt.event.ActionListener;
 
 public class Drawing extends JFrame {
 
+    /**
+     * Container
+     */
+    public Container container;
+    /**
+     * Areas
+     */
+    public DrawArea drawArea;
+    public Players playersArea;
+    public Chat chatArea;
+    public Tools toolsArea;
+    public Bar barArea;
 
-    Container container;
-    DrawArea drawArea;
+    /**
+     * Elements
+     */
+    public JButton clearBtn, applyBtn, eraserBtn;
+    public JTextField colorInput, sizeInput;
 
-    JButton clearBtn, applyBtn, eraserBtn;
-    JTextField colorInput, sizeInput;
 
-    ActionListener actionListener = new ActionListener() {
+    /**
+     * Listeners
+     */
+    public ActionListener actionListener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn) {
                 drawArea.clear();
@@ -28,12 +46,18 @@ public class Drawing extends JFrame {
         }
     };
 
+    /**
+     * Constructor
+     */
     public Drawing() {
         container = getContentPane();
         container.setLayout(new BorderLayout());
 
         drawArea = DrawArea.getInstance();
-        container.add(drawArea, BorderLayout.CENTER);
+        playersArea = new Players();
+        chatArea = new Chat();
+        toolsArea = new Tools();
+        barArea = new Bar();
 
         JPanel controls = new JPanel();
 
@@ -59,15 +83,27 @@ public class Drawing extends JFrame {
         controls.add(eraserBtn);
 
 
-        container.add(controls, BorderLayout.SOUTH);
+        // container.add(controls, BorderLayout.SOUTH);
 
-        setSize(900, 600);
+
+        JPanel centerArea = new JPanel();
+        centerArea.setLayout(new BorderLayout());
+        centerArea.add(drawArea, BorderLayout.CENTER);
+        centerArea.add(toolsArea, BorderLayout.SOUTH);
+        container.add(centerArea, BorderLayout.CENTER);
+        container.add(playersArea, BorderLayout.LINE_START);
+        container.add(chatArea, BorderLayout.LINE_END);
+        container.add(barArea, BorderLayout.NORTH);
+
+
+        setResizable(true);
+        setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        toFront();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        setSize(900, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+
     }
+
 
 }

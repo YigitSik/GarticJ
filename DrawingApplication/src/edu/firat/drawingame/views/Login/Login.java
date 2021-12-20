@@ -1,9 +1,8 @@
 package edu.firat.drawingame.views.Login;
 
-import edu.firat.drawingame.Game;
-import edu.firat.drawingame.canvas.Drawing;
 import edu.firat.drawingame.network.Network;
 import edu.firat.drawingame.server.Server;
+import edu.firat.drawingame.views.Drawing.Drawing;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

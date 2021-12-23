@@ -90,14 +90,19 @@ public class Drawing extends JFrame {
         centerArea.setLayout(new BorderLayout());
         centerArea.add(drawArea, BorderLayout.CENTER);
         centerArea.add(toolsArea, BorderLayout.SOUTH);
+        centerArea.add(barArea, BorderLayout.NORTH);
         container.add(centerArea, BorderLayout.CENTER);
         container.add(playersArea, BorderLayout.LINE_START);
         container.add(chatArea, BorderLayout.LINE_END);
-        container.add(barArea, BorderLayout.NORTH);
 
 
-        setResizable(true);
-        setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        setTitle("GarticJ");
+        setResizable(false);
+        setSize(1280, 720);
+        final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        final int centerX = dim.width / 2 - this.getSize().width / 2;
+        final int centerY = dim.height / 2 - this.getSize().height / 2;
+        setLocation(centerX, centerY);
         toFront();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

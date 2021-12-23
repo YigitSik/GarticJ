@@ -17,7 +17,7 @@ public class Login extends JFrame {
     public Login() {
         initContainer();
         setContentPane(container);
-        setTitle("Login");
+        setTitle("GarticJ | Login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 360);
         setResizable(false);

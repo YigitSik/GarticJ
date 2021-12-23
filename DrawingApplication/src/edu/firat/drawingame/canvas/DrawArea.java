@@ -4,6 +4,7 @@ import edu.firat.drawingame.model.DrawData;
 import edu.firat.drawingame.network.Network;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,7 +23,7 @@ public class DrawArea extends JComponent {
 
 
     private DrawArea() {
-
+        setBorder(new LineBorder(Color.decode("#937ada"),10));
         setDoubleBuffered(false);
         addMouseListener(new MouseAdapter() {
             @Override

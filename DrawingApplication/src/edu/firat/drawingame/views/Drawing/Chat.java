@@ -8,49 +8,16 @@ import java.awt.*;
 public class Chat extends JPanel {
     public Chat() {
         setBackground(Color.decode("#7859d1"));
-        setPreferredSize(new Dimension(220, 700));
-        setLayout(new BorderLayout());
-
+        setPreferredSize(new Dimension(getSize().width, 70));
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        setBorder(new EmptyBorder(15, 0, 15, 0));
         Input input = new Input();
         Submit submit = new Submit();
-        Area area = new Area();
-
-        area.container.add(new Message(true, true, "Taha"));
-        area.container.add(new Message(false, false, "Taha"));
-        area.container.add(new Message(false, true, "Taha"));
-        area.container.add(new Message(false, false, "Taha"));
-        area.container.add(new Message(false, true, "Taha"));
-
-        area.container.repaint();
 
 
-        JPanel group = new JPanel();
-        group.setBorder(new EmptyBorder(15, 15, 15, 15));
-        group.setBackground(Color.decode("#7859d1"));
+        add(input);
+        add(submit);
 
-        group.setLayout(new BorderLayout());
-        group.add(input, BorderLayout.CENTER);
-        group.add(submit, BorderLayout.SOUTH);
-        add(area, BorderLayout.CENTER);
-        add(group, BorderLayout.SOUTH);
-
-
-    }
-
-    class Area extends JScrollPane {
-        public JPanel container;
-
-        public Area() {
-            setBackground(Color.decode("#7859d1"));
-            getViewport().setBackground(Color.decode("#7859d1"));
-            setBorder(new EmptyBorder(15, 15, 15, 15));
-            container = new JPanel();
-            container.setBackground(Color.decode("#7859d1"));
-            container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-            getViewport().add(container);
-
-
-        }
 
     }
 
@@ -59,7 +26,6 @@ public class Chat extends JPanel {
         public Input() {
             setBackground(Color.decode("#937ada"));
             setOpaque(true);
-            setPreferredSize(new Dimension(getSize().height, 40));
             setFont(new Font("Serif", Font.BOLD, 14));
             setForeground(Color.decode("#ffffff"));
             setHorizontalAlignment(SwingConstants.CENTER);
@@ -72,7 +38,8 @@ public class Chat extends JPanel {
             setBorder(null);
             setBackground(Color.decode("#ffffff"));
             setOpaque(true);
-            setPreferredSize(new Dimension(getSize().height, 40));
+            setBorder(new EmptyBorder(15, 15, 15, 15));
+            setPreferredSize(new Dimension(200, 40));
             setFont(new Font("Serif", Font.BOLD, 14));
             setForeground(Color.decode("#7859d1"));
             setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,31 +48,4 @@ public class Chat extends JPanel {
     }
 
 
-    class Message extends JLabel {
-        public Message(boolean status, boolean me, String nickname) {
-            setOpaque(true);
-            setPreferredSize(new Dimension(190, 20));
-            setFont(new Font("Serif", Font.BOLD, 12));
-            setBorder(new EmptyBorder(0,0,5,0));
-
-            setBackground(Color.decode("#7859d1"));
-            if (me) {
-                if (status) {
-                    setText(nickname + ": Doğru Cevap");
-                    setForeground(Color.decode("#00FF66"));
-                } else {
-                    setText(nickname + ": Yanlış Cevap");
-                    setForeground(Color.decode("#FF0000"));
-                }
-            } else {
-                setForeground(Color.decode("#ffffff"));
-                if (status)
-                    setText("\t\t\t\t\t" + nickname + ": Doğru Cevap");
-                else
-                    setText("\t\t\t\t\t" + nickname + ": Yanlış Cevap");
-            }
-
-
-        }
-    }
 }

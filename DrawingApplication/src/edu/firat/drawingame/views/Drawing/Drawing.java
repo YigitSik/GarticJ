@@ -89,11 +89,11 @@ public class Drawing extends JFrame {
         JPanel centerArea = new JPanel();
         centerArea.setLayout(new BorderLayout());
         centerArea.add(drawArea, BorderLayout.CENTER);
-        centerArea.add(toolsArea, BorderLayout.SOUTH);
+        centerArea.add(chatArea, BorderLayout.SOUTH);
         centerArea.add(barArea, BorderLayout.NORTH);
         container.add(centerArea, BorderLayout.CENTER);
         container.add(playersArea, BorderLayout.LINE_START);
-        container.add(chatArea, BorderLayout.LINE_END);
+        container.add(toolsArea, BorderLayout.LINE_END);
 
 
         setTitle("GarticJ");

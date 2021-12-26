@@ -1,6 +1,6 @@
-package edu.firat.drawingame;
+package edu.firat.garticj;
 
-import edu.firat.drawingame.views.Login.Login;
+import edu.firat.garticj.views.Login.Login;
 
 public class Game {
 

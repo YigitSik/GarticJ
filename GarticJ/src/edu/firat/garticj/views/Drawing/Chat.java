@@ -1,8 +1,7 @@
-package edu.firat.drawingame.views.Drawing;
+package edu.firat.garticj.views.Drawing;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Chat extends JPanel {

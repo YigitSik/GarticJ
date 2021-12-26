@@ -1,8 +1,11 @@
-package edu.firat.drawingame.views.Login;
+package edu.firat.garticj.views.Login;
 
-import edu.firat.drawingame.network.Network;
-import edu.firat.drawingame.server.Server;
-import edu.firat.drawingame.views.Drawing.Drawing;
+import edu.firat.garticj.model.Message;
+import edu.firat.garticj.model.PlayerData;
+import edu.firat.garticj.network.Network;
+import edu.firat.garticj.server.Server;
+import edu.firat.garticj.views.Drawing.Drawing;
+import edu.firat.garticj.views.Drawing.Players;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -50,8 +53,11 @@ public class Login extends JFrame {
                 String nickname = nickInput.getText();
                 String host = hostInput.getText();
                 String port = portInput.getText();
-                new Network(nickname, host, port);
+                PlayerData playerData = new PlayerData(nickname,0);
+                PlayerData.players.add(playerData);
+                new Network(host, port);
                 new Drawing();
+                Network.sendData(playerData);
                 setVisible(false);
                 dispose();
             }
@@ -82,12 +88,13 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nickname = newNickInput.getText();
                 String port = newPortInput.getText();
+                PlayerData.players.add(new PlayerData(nickname,0));
 
                 new Thread(()->{
                     new Server(Integer.parseInt(port));
                 }).start();
 
-                new Network(nickname, "localhost", port);
+                new Network("localhost", port);
                 new Drawing();
                 setVisible(false);
                 dispose();

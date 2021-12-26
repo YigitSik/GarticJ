@@ -1,4 +1,4 @@
-package edu.firat.drawingame.views.Drawing;
+package edu.firat.garticj.views.Drawing;
 
 import javax.swing.*;
 import java.awt.*;

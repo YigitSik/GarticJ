@@ -1,7 +1,8 @@
-package edu.firat.drawingame.canvas;
+package edu.firat.garticj.views.canvas;
 
-import edu.firat.drawingame.model.DrawData;
-import edu.firat.drawingame.network.Network;
+import edu.firat.garticj.model.DrawData;
+import edu.firat.garticj.model.Message;
+import edu.firat.garticj.network.Network;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -9,8 +10,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.Arrays;
-import java.util.HashMap;
 
 
 public class DrawArea extends JComponent {
@@ -38,8 +37,8 @@ public class DrawArea extends JComponent {
                 currentX = e.getX();
                 currentY = e.getY();
 
-                DrawData drawData = new DrawData(oldX, oldY, currentX, currentY);
-                Network.sendDrawData(drawData);
+                Message drawData = (Message) new DrawData(oldX, oldY, currentX, currentY);
+                Network.sendData(drawData);
 
                 if (g2D != null) {
                     g2D.drawLine(oldX, oldY, currentX, currentY);
@@ -75,7 +74,6 @@ public class DrawArea extends JComponent {
     protected void paintComponent(Graphics g) {
         generateImage();
         g.drawImage(image, 0, 0, null);
-
     }
 
     public void clear() {

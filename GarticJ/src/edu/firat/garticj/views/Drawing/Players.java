@@ -1,38 +1,59 @@
-package edu.firat.drawingame.views.Drawing;
+package edu.firat.garticj.views.Drawing;
 
-import edu.firat.drawingame.model.PlayersData;
+import edu.firat.garticj.model.PlayerData;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Players extends JPanel {
 
-    PlayersData[] playersData = {new PlayersData("Rafael", 100),new PlayersData("Donatello", 88), new PlayersData("Leonardo", 61), new PlayersData("Michelangelo", 44)};
     Player[] players;
+    static Players single_instance;
+    Area area;
 
-
-    public Players() {
+    private Players() {
         setBackground(Color.decode("#7859d1"));
         setPreferredSize(new Dimension(220, getSize().height));
         setMinimumSize(new Dimension(220, getSize().height));
         setBorder(new EmptyBorder(20,0,0,0));
 
+        area = new Area();
 
-        Area area = new Area();
+        players = new Player[PlayerData.players.size()];
+        int index=0;
 
-        players = new Player[playersData.length];
-
-        for (int i = 0; i < playersData.length; i++) {
-            players[i] = new Player(i + 1, playersData[i].nickname, playersData[i].point);
-            area.container.add(players[i]);
+        for(PlayerData data:PlayerData.players){
+            players[index] = new Player(index+1,data.nickname,data.point);
+            area.container.add(players[index]);
+            index++;
         }
+
         area.container.repaint();
         add(area);
 
+    }
 
+    public static Players getInstance(){
+        if (single_instance ==null){
+            single_instance = new Players();
+        }
+        return single_instance;
+    }
+
+    public void updatePlayers(){
+
+        players = new Player[PlayerData.players.size()];
+        int index=0;
+
+        for(PlayerData data:PlayerData.players){
+            System.out.println(data.nickname);
+            players[index] = new Player(index+1,data.nickname,data.point);
+            area.container.add(players[index]);
+            index++;
+        }
+        area.container.repaint();
+        add(area);
     }
 
     class Player extends JPanel {

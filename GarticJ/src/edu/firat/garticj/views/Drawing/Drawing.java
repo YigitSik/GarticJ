@@ -1,6 +1,6 @@
-package edu.firat.drawingame.views.Drawing;
+package edu.firat.garticj.views.Drawing;
 
-import edu.firat.drawingame.canvas.DrawArea;
+import edu.firat.garticj.views.canvas.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,7 +54,7 @@ public class Drawing extends JFrame {
         container.setLayout(new BorderLayout());
 
         drawArea = DrawArea.getInstance();
-        playersArea = new Players();
+        playersArea = Players.getInstance();
         chatArea = new Chat();
         toolsArea = new Tools();
         barArea = new Bar();

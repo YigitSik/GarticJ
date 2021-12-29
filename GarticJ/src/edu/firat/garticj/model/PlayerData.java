@@ -9,7 +9,6 @@ public class PlayerData extends Message implements Serializable {
 
     public String nickname;
     public int point;
-    public static ArrayList<PlayerData> players = new ArrayList<>();
 
     public PlayerData(String nickname, int point) {
         super("PlayerData");

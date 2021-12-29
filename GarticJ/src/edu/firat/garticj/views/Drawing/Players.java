@@ -5,11 +5,13 @@ import edu.firat.garticj.model.PlayerData;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Players extends JPanel {
 
     Player[] players;
     static Players single_instance;
+    public ArrayList<PlayerData> playerDataArrayList  ;
     Area area;
 
     private Players() {
@@ -17,21 +19,8 @@ public class Players extends JPanel {
         setPreferredSize(new Dimension(220, getSize().height));
         setMinimumSize(new Dimension(220, getSize().height));
         setBorder(new EmptyBorder(20,0,0,0));
-
+        playerDataArrayList = new ArrayList<>();
         area = new Area();
-
-        players = new Player[PlayerData.players.size()];
-        int index=0;
-
-        for(PlayerData data:PlayerData.players){
-            players[index] = new Player(index+1,data.nickname,data.point);
-            area.container.add(players[index]);
-            index++;
-        }
-
-        area.container.repaint();
-        add(area);
-
     }
 
     public static Players getInstance(){
@@ -43,11 +32,11 @@ public class Players extends JPanel {
 
     public void updatePlayers(){
 
-        players = new Player[PlayerData.players.size()];
+        players = new Player[playerDataArrayList.size()];
         int index=0;
 
-        for(PlayerData data:PlayerData.players){
-            System.out.println(data.nickname);
+        for(PlayerData data:playerDataArrayList){
+            System.out.println("Players "+data.nickname);
             players[index] = new Player(index+1,data.nickname,data.point);
             area.container.add(players[index]);
             index++;

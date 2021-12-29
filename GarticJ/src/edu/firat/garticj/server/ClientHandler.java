@@ -3,6 +3,7 @@ package edu.firat.garticj.server;
 import edu.firat.garticj.model.DrawData;
 import edu.firat.garticj.model.Message;
 import edu.firat.garticj.model.PlayerData;
+import edu.firat.garticj.model.PlayerDataList;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class ClientHandler implements Runnable{
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
+    public static ArrayList<PlayerData> playerDataArrayList = new ArrayList<>();
     private Socket socket;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
@@ -42,6 +44,9 @@ public class ClientHandler implements Runnable{
                 else if (message.getDataType().equals("PlayerData")){
                     broadcastPlayerData((PlayerData) message);
                 }
+//                else if (message.getDataType().equals("PlayerDataList")){
+//                    broadcastPlayerData((PlayerData) message);
+//                }
 
             } catch (IOException | ClassNotFoundException e){
                 closeEverything(socket,oos,ois);
@@ -65,12 +70,19 @@ public class ClientHandler implements Runnable{
         }
     }
 
+
     public void broadcastPlayerData(PlayerData playerData){
 
+        playerDataArrayList.add(playerData);
+        PlayerDataList playerDataList = new PlayerDataList(playerDataArrayList);
+
         for (ClientHandler clientHandler : clientHandlers){
+
             try {
                 if (this != clientHandler) {
-                    clientHandler.oos.writeObject(playerData);
+                   // playerDataArrayList.add(playerData);
+                    //PlayerData.players.add(playerData);
+                    clientHandler.oos.writeObject(playerDataList);
                     clientHandler.oos.flush();
                 }
             } catch (IOException e){

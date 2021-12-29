@@ -17,6 +17,8 @@ import java.util.Locale;
 public class Login extends JFrame {
     JPanel container, leftPanel, rightPanel;
 
+    Players players;
+
     public Login() {
         initContainer();
         setContentPane(container);
@@ -54,10 +56,13 @@ public class Login extends JFrame {
                 String host = hostInput.getText();
                 String port = portInput.getText();
                 PlayerData playerData = new PlayerData(nickname,0);
-                PlayerData.players.add(playerData);
                 new Network(host, port);
                 new Drawing();
                 Network.sendData(playerData);
+//                players = Players.getInstance();
+//                players.playerDataArrayList.add(playerData);
+//                players.updatePlayers();
+
                 setVisible(false);
                 dispose();
             }
@@ -88,7 +93,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nickname = newNickInput.getText();
                 String port = newPortInput.getText();
-                PlayerData.players.add(new PlayerData(nickname,0));
+                PlayerData playerData = new PlayerData(nickname,0);
 
                 new Thread(()->{
                     new Server(Integer.parseInt(port));
@@ -96,6 +101,13 @@ public class Login extends JFrame {
 
                 new Network("localhost", port);
                 new Drawing();
+
+                players = Players.getInstance();
+
+                players.playerDataArrayList.add(playerData);
+                players.updatePlayers();
+
+                Network.sendData(playerData);
                 setVisible(false);
                 dispose();
 

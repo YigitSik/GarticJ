@@ -1,6 +1,7 @@
 package edu.firat.garticj.network;
 
 import edu.firat.garticj.model.PlayerData;
+import edu.firat.garticj.model.PlayerDataList;
 import edu.firat.garticj.views.Drawing.Players;
 import edu.firat.garticj.views.canvas.DrawArea;
 import edu.firat.garticj.model.DrawData;
@@ -8,6 +9,7 @@ import edu.firat.garticj.model.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class Network {
 
@@ -51,8 +53,15 @@ public class Network {
                 if(message.getDataType().equals("DrawData")){
                     drawArea.drawBroadcastData((DrawData) message);
                 }
-                else if (message.getDataType().equals("PlayerData")){
-                    PlayerData.players.add((PlayerData) message);
+//                else if (message.getDataType().equals("PlayerData")){
+//                    players.playerDataArrayList = ((PlayerData) message);
+//                    players.updatePlayers();
+//                }
+                else if (message.getDataType().equals("PlayerDataList")){
+                    players.playerDataArrayList = ((PlayerDataList) message).players;
+                    for (PlayerData data :((PlayerDataList) message).players){
+                        System.out.println(data);
+                    }
                     players.updatePlayers();
                 }
 

@@ -48,8 +48,6 @@ public class DrawArea extends JComponent {
                 }
             }
         });
-
-
     }
 
     public void drawBroadcastData(DrawData drawData) {
